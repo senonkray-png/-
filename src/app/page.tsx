@@ -21,7 +21,7 @@ export default function Home() {
       });
 
       function raf(time: number) {
-        lenis!.raf(time);
+        if (lenis) lenis.raf(time);
         requestAnimationFrame(raf);
       }
       requestAnimationFrame(raf);
