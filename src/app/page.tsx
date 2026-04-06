@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import type Lenis from "@studio-freight/lenis";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Competencies from "@/components/Competencies";
@@ -9,19 +10,18 @@ import Contact from "@/components/Contact";
 
 export default function Home() {
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let lenis: any;
+    let lenis: Lenis | undefined;
 
     const initLenis = async () => {
-      const { default: Lenis } = await import("@studio-freight/lenis");
-      lenis = new Lenis({
+      const { default: LenisClass } = await import("@studio-freight/lenis");
+      lenis = new LenisClass({
         duration: 1.2,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
       });
 
       function raf(time: number) {
-        lenis.raf(time);
+        lenis!.raf(time);
         requestAnimationFrame(raf);
       }
       requestAnimationFrame(raf);
